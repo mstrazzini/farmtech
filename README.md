@@ -1,152 +1,147 @@
-# FarmTech Solutions - Agricultura Digital com Análise Climática
 
-## Descrição do Projeto
+# FarmTech Solutions - Projeto de Agricultura Digital
 
-Este projeto é uma solução desenvolvida pela **FarmTech Solutions** para uma fazenda que investe em inovação e tecnologia para aumentar a produtividade de suas culturas, migrando para a **Agricultura Digital**. A solução consiste em uma aplicação Python para gerenciar os dados de plantio, calcular métricas de produtividade e exportar os dados para análise em R. Além disso, uma aplicação R se conecta a uma API meteorológica pública para coletar dados climáticos, processá-los e exibi-los no terminal.
+## Visão Geral
 
-### Funcionalidades da Aplicação:
+A FarmTech Solutions está colaborando com uma fazenda focada em inovação e tecnologia para melhorar a produtividade, migrando para a Agricultura Digital. Este projeto consiste em um conjunto de aplicações para gerenciamento de dados agrícolas, análise estatística e integração com serviços meteorológicos, auxiliando na tomada de decisões e na gestão da fazenda.
 
-1. **Gestão de Dados de Cultivo** (Python):
+### Componentes do Projeto
 
-   - Suporte a dois tipos de culturas: **Milho** e **Café**.
-   - Cálculo da área de plantio.
-   - Cálculo de manejo de insumos com base na cultura e no tamanho da área plantada.
-   - Armazenamento dos dados em estruturas de vetores.
-   - Menu interativo para:
-     - Inserção de dados.
-     - Visualização de dados.
-     - Atualização de registros.
-     - Deleção de registros.
-     - Exportação de dados para arquivo CSV.
-2. **Análise de Dados Climáticos** (R):
+- **Aplicação Python (`app_farmtech.py`)**: Gerencia dados de cultivo, realiza cálculos básicos de manejo agrícola e permite operações CRUD (Criar, Ler, Atualizar, Deletar) sobre os dados de plantio.
+- **Aplicação de Análise Estatística em R (`app_estatisticas.R`)**: Analisa os dados de cultivo e gera estatísticas básicas (ex: média, desvio padrão) a partir do arquivo CSV gerado pela aplicação Python.
+- **Aplicação de Integração Meteorológica em R (`app_clima.R`)**: Busca dados meteorológicos em tempo real para uma cidade específica usando a API do OpenWeather e exibe as informações relevantes no terminal.
 
-   - Conexão com a API meteorológica pública [OpenWeather](https://openweathermap.org/api) para coletar dados climáticos de qualquer cidade.
-   - Exibição das seguintes informações meteorológicas no terminal:
-     - Temperatura atual.
-     - Umidade.
-     - Descrição das condições climáticas.
-     - Velocidade do vento.
-   - Cálculo de estatísticas básicas como **média** e **desvio padrão** para os dados de plantio exportados do Python.
+---
 
-## Tecnologias Utilizadas
+## Requisitos
 
-- **Python** (para a gestão de dados de cultivo)
-  - Módulos principais: `csv`, `input/output` e `loops`
-- **R** (para a análise climática e estatísticas)
-  - Pacotes: `httr` para requisições HTTP, `jsonlite` para processar dados JSON
-- **API Meteorológica**: [OpenWeather](https://openweathermap.org/api)
+### Aplicação Python (`app_farmtech.py`)
 
-## Como Executar o Projeto
+- Python 3.x
+- Bibliotecas necessárias: `csv`, `os`, `sys`
 
-### Pré-requisitos
+### Aplicações em R (`app_estatisticas.R`, `app_clima.R`)
 
-- **Python 3.x**: Certifique-se de ter o Python instalado. Caso não tenha, baixe [aqui](https://www.python.org/downloads/).
-- **R**: Certifique-se de ter o R instalado. Caso não tenha, baixe [aqui](https://cran.r-project.org/mirrors.html).
-- **Bibliotecas em Python**:
-  - O projeto utiliza apenas bibliotecas padrão do Python.
-- **Bibliotecas em R**:
-  - Instale os pacotes necessários executando os seguintes comandos no R:
-    ```r
-    install.packages("httr")
-    install.packages("jsonlite")
-    ```
+- R versão 4.x ou superior
+- Pacotes R necessários:
+  - `httr`
+  - `jsonlite`
 
-### Passo a Passo para Execução
+---
 
-#### 1. Execução da Aplicação Python
+## Como Usar
 
-O código Python gerencia os dados de plantio e exporta as informações em CSV.
+### 1. Aplicação Python: `app_farmtech.py`
 
-- **Clone o repositório**:
+Essa aplicação Python gerencia a entrada, saída e gestão de dados de cultivo para dois tipos de culturas: **milho** e **café**. Ela permite:
 
-  ```bash
-  git clone https://github.com/mstrazzini/farmtech.git
-  cd farmtech
-  ```
-- **Execute o programa em Python**:
+- Inserir dados de plantio (tamanho da área, tipo de cultura, requisitos de insumos, etc.)
+- Visualizar ou atualizar registros de plantio existentes
+- Deletar registros
+- Salvar os dados em um arquivo CSV
 
-  ```bash
-  python app_farmtech.py
-  ```
-- **Menu de opções**:
-
-  - Escolha a opção "1" para inserir dados sobre uma cultura (Milho/Café).
-  - Escolha a opção "2" para visualizar os dados inseridos.
-  - Escolha a opção "3" para atualizar registros.
-  - Escolha a opção "4" para deletar registros.
-  - Escolha a opção "5" para exportar os dados para o arquivo CSV.
-  - Escolha a opção "6" para sair.
-
-O arquivo CSV será gerado no diretório do projeto com o nome `dados_cultivo.csv`.
-
-#### 2. Execução da Aplicação R
-
-A aplicação em R coleta dados meteorológicos e realiza cálculos estatísticos.
-
-#### Configurando a API Key para OpenWeather
-
-Para obter dados meteorológicos, você precisará configurar sua **API Key** do OpenWeather.
-
-1. **Obtenha sua API Key** :
-
-* Acesse[OpenWeather]() e crie uma conta para obter sua chave de API.
-
-2. **Configure a variável de ambiente** :
-   * No Linux ou macOS, adicione a seguinte linha ao seu arquivo `~/.bashrc` ou `~/.zshrc` e depois execute `source ~/.bashrc` ou `source ~/.zshrc`:
-
-     <pre class="!overflow-visible"><div class="dark bg-gray-950 contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative"><div class="flex items-center text-token-text-secondary bg-token-main-surface-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-md h-9">bash</div><div class="sticky top-9 md:top-[5.75rem]"><div class="absolute bottom-0 right-2 flex h-9 items-center"><div class="flex items-center rounded bg-token-main-surface-secondary px-2 font-sans text-xs text-token-text-secondary"><span class="" data-state="closed"></span></div></div></div></div></pre>
-
-- **Execute o código R**:
-
-  ```bash
-  Rscript app_clima.R
-  ```
-- **Escolha uma cidade**:
-
-  - O script solicitará o nome de uma cidade para coletar as informações meteorológicas. Insira o nome da cidade em português ou inglês (por exemplo, "São Paulo").
-- **Exibição dos dados**:
-
-  - Após a consulta, os dados climáticos serão exibidos diretamente no terminal.
-
-#### 3. Análise de Dados Estatísticos (opcional)
-
-- **Análise em R**:
-  O arquivo CSV gerado pelo Python pode ser consumido em R para cálculos estatísticos, como média e desvio padrão.
-
-  - Abra o R e execute o seguinte script:
-    ```r
-    # Leitura do arquivo CSV
-    dados <- read.csv("dados_cultivo.csv")
-
-    # Cálculo de estatísticas
-    media_area <- mean(dados$area)
-    desvio_area <- sd(dados$area)
-
-    # Exibir os resultados
-    cat("Média da área de plantio: ", media_area, "\n")
-    cat("Desvio padrão da área de plantio: ", desvio_area, "\n")
-    ```
-
-## Arquitetura do Projeto
-
-```plaintext
-farmtech/
-│
-├── app_farmtech.py        # Código Python para gerenciar dados de plantio e exportar CSV
-├── app_estatisticas.R     # Código R para gerar estatísticas do plantio
-├── app_clima.R            # Código R para coletar dados climáticos da API
-├── dados_cultivo.csv      # Arquivo CSV exportado com os dados de cultivo (gerado dinamicamente)
-├── README.md              # Documentação do projeto
-└── .gitignore             # Arquivos a serem ignorados no repositório
+#### Como Executar:
+```bash
+python3 app_farmtech.py
 ```
 
-## Melhorias Futuras
+### 2. Aplicação de Análise Estatística em R: `app_estatisticas.R`
 
-1. **Integração de Dados**: Conectar os dados climáticos com os dados de plantio, gerando insights e relatórios mais completos para os produtores.
-2. **Interface Gráfica**: Implementar uma interface gráfica (usando Flask para Python ou Shiny para R) para visualização dos dados e geração de relatórios.
-3. **Automação de Processos**: Automatizar a coleta de dados climáticos em intervalos regulares para acompanhar o impacto do clima nas safras.
+Este script R lê o arquivo `dados_cultivo.csv` gerado pela aplicação Python e calcula estatísticas básicas como:
+
+- Média
+- Desvio padrão
+- Mediana
+
+#### Como Executar:
+```bash
+Rscript app_estatisticas.R
+```
+
+### 3. Aplicação de Integração Meteorológica em R: `app_clima.R`
+
+Este script conecta-se à API do OpenWeather para obter dados meteorológicos em tempo real para qualquer cidade e exibe informações como:
+
+- Temperatura atual
+- Umidade
+- Velocidade do vento
+- Descrição das condições climáticas (ex: nublado, céu claro)
+
+#### Como Executar:
+
+Primeiro, defina sua chave de API do OpenWeather como uma variável de ambiente:
+```bash
+export OPENWEATHER_API_KEY="sua_chave_api_openweather"
+```
+
+Em seguida, execute o script passando o nome da cidade como argumento:
+```bash
+Rscript app_clima.R "São Paulo"
+```
+
+---
+
+## Arquivos do Projeto
+
+- **`app_farmtech.py`**: A principal aplicação Python para gerenciamento de dados de cultivo.
+- **`dados_cultivo.csv`**: O arquivo CSV onde os dados de cultivo são armazenados.
+- **`app_estatisticas.R`**: Script R para realizar análise estatística dos dados de cultivo.
+- **`app_clima.R`**: Script R para obter e exibir dados meteorológicos usando a API OpenWeather.
+
+---
+
+## Instruções de Instalação
+
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/mstrazzini/farmtech.git
+   cd farmtech
+   ```
+
+2. **Configurar dependências Python**:
+   Certifique-se de que o Python 3 está instalado e execute o script Python diretamente.
+
+3. **Configurar dependências R**:
+   Instale os pacotes R necessários executando o seguinte no seu ambiente R:
+   ```r
+   install.packages("httr")
+   install.packages("jsonlite")
+   ```
+
+4. **Definir a Chave de API do OpenWeather**:
+   Defina a variável de ambiente `OPENWEATHER_API_KEY` para usar o script de clima:
+   ```bash
+   export OPENWEATHER_API_KEY="sua_chave_api_openweather"
+   ```
+
+---
+
+## Exemplos de Uso
+
+### Cenário 1: Gerenciamento de Dados de Cultivo
+1. Execute a aplicação Python para gerenciar dados de cultivo (inserção, atualização, exclusão, etc.).
+2. Os dados de cultivo serão salvos no arquivo `dados_cultivo.csv`.
+
+### Cenário 2: Analisando Dados de Cultivo
+1. Após inserir os dados de cultivo, execute o script `app_estatisticas.R` para analisar os dados e calcular métricas estatísticas.
+
+### Cenário 3: Verificando Dados Meteorológicos
+1. Use o script `app_clima.R` para buscar os dados meteorológicos de uma cidade específica, útil para tomar decisões em tempo real na fazenda.
+
+---
+
+## Licença
+
+Este projeto é de **licença privada**. A reprodução, redistribuição ou modificação dos materiais contidos neste repositório só são permitidas mediante autorização prévia e expressa dos proprietários do projeto.
+
+---
 
 ## Contribuições
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir **Issues** ou enviar **Pull Requests** no repositório [FarmTech Solutions](https://github.com/mstrazzini/farmtech).
+Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou abrir issues. Certifique-se de que qualquer nova funcionalidade ou alteração venha acompanhada de documentação e testes apropriados.
 
+---
+
+## Contato
+
+Em caso de dúvidas ou para mais informações, entre em contato com os mantenedores do projeto através do repositório no GitHub.
